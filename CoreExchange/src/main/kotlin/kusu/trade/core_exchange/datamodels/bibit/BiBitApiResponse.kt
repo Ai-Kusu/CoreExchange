@@ -1,4 +1,4 @@
-package kusu.trade.core_exchange.datamodels
+package kusu.trade.core_exchange.datamodels.bibit
 
 import kotlinx.serialization.Serializable
 

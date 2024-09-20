@@ -1,4 +1,4 @@
-package kusu.trade.core_exchange.datamodels.open_interest
+package kusu.trade.core_exchange.datamodels.bibit.exchange_response.open_interest
 
 import kotlinx.serialization.Serializable
 

@@ -1,7 +1,7 @@
 package kusu.trade.core_exchange.datasource.database.exchange_params
 
-import kusu.trade.core_exchange.datamodels.exchange_params.Ticker
+import kusu.trade.core_exchange.datamodels.bibit.exchange_params.ticker.Ticker
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface TickerRepository: JpaRepository<Ticker, Long> {
+interface TickerRepository: JpaRepository<kusu.trade.core_exchange.datamodels.bibit.exchange_params.ticker.Ticker, Long> {
 }

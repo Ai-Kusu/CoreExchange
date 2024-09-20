@@ -1,6 +1,7 @@
-package kusu.trade.core_exchange.datamodels.kline
+package kusu.trade.core_exchange.datamodels.bibit.exchange_response.kline
 
 import kotlinx.serialization.Serializable
+import kusu.trade.core_exchange.datamodels.bibit.exchange_response.BiBitResponse
 
 @Serializable
 data class ByBitKlineData(
@@ -15,4 +16,4 @@ data class ByBitKlineData(
     val turnover: String,
     val confirm: Boolean,
     val timestamp: Long
-)
+) : kusu.trade.core_exchange.datamodels.bibit.exchange_response.BiBitResponse()

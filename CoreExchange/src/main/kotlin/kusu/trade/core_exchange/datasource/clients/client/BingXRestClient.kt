@@ -1,20 +1,18 @@
 package kusu.trade.core_exchange.datasource.clients.client
 
-import kusu.trade.core_exchange.consts.BiBitURLs
+import kusu.trade.core_exchange.consts.BingXURLs
 import org.springframework.web.reactive.function.client.WebClient
 
-
-class BiBitRestClient(){
-
+class BingXRestClient {
     companion object{
-        private val biBitClient: WebClient = WebClient
+        private val bingXClient: WebClient = WebClient
             .builder()
-            .baseUrl(BiBitURLs.URL_API)
+            .baseUrl(BingXURLs.API_URL)
             .build()
 
         fun getClient(): WebClient {
 
-            return biBitClient
+            return bingXClient
         }
     }
 }
