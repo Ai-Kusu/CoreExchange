@@ -7,6 +7,6 @@ data class BingXResponseBase <T> (
 
     val code: Int,
     val msg: String,
-    val data: List<T>
+    val data: T
 
 ) where T : BingXResponse
