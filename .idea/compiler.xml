@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="CoreExchange.CoreExchange.main" target="21" />
-      <module name="CoreExchange.CoreExchange.test" target="21" />
+      <module name="CoreExchange.CoreExchange.main~1" target="21" />
+      <module name="CoreExchange.CoreExchange.test~1" target="21" />
     </bytecodeTargetLevel>
   </component>
 </project>

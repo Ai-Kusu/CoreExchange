@@ -8,15 +8,14 @@ import kusu.trade.core_exchange.datamodels.bingx.open_interest.BingXResponseOpen
 import kusu.trade.core_exchange.datasource.clients.client.BingXWebClient
 import java.util.*
 
-class MarkPriceKlineSubscribe(private val bingXWebClient: BingXWebClient = BingXWebClient.getClient()) {
+class OpenInterestSource(private val bingXWebClient: BingXWebClient = BingXWebClient.getClient()) :
+    ExchangeSource<BingXResponseOpenInterest> {
 
-    fun subscribe(symbol: String) = flow{
-        val params = TreeMap<String,String>()
-        params["symbol"] = symbol
+    override fun subscribe(params: TreeMap<String,String>) = flow{
 
         while (true){
             val response = bingXWebClient.getRequest(
-                BingXURLs.MARK_PRICE_KLINE,
+                BingXURLs.OPEN_INTEREST,
                 params
             )
 
@@ -24,16 +23,14 @@ class MarkPriceKlineSubscribe(private val bingXWebClient: BingXWebClient = BingX
 
             emit(jsonR)
 
-            kotlinx.coroutines.delay(1000)
+            kotlinx.coroutines.delay(30000)
         }
     }
 
-    suspend fun get(symbol: String): BingXResponseBase<BingXResponseOpenInterest> {
-        val params = TreeMap<String,String>()
-        params["symbol"] = symbol
+    override fun getNow(params: TreeMap<String,String>): BingXResponseBase<BingXResponseOpenInterest> {
 
         val response = bingXWebClient.getRequest(
-            BingXURLs.MARK_PRICE_KLINE,
+            BingXURLs.OPEN_INTEREST,
             params
         )
 
@@ -42,4 +39,5 @@ class MarkPriceKlineSubscribe(private val bingXWebClient: BingXWebClient = BingX
         return(jsonR)
 
     }
+
 }

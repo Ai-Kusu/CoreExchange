@@ -69,7 +69,7 @@ object BingXAuthSignature {
         var first = true
         var valueToDigest = ""
         for ((key, value) in parameters) {
-            if (!first!!) {
+            if (!first) {
                 valueToDigest += "&"
             }
             first = false

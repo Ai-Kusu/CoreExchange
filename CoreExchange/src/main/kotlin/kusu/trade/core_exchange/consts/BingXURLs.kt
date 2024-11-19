@@ -7,6 +7,8 @@ object BingXURLs {
      */
     const val API_URL = "https://open-api.bingx.com"
 
+    const val WS_API_URL = "wss://open-api-swap.bingx.com/swap-market?listenKey=425f783f4a17cd65f4a5d7470cfd45a956dba0c29564aa4b70967bee4e4a8984"
+
     /**
      * GET
      *
