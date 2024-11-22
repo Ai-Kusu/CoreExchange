@@ -65,7 +65,7 @@ object BingXAuthSignature {
     /**
      * Digest string для запросов
      */
-    fun getMessageToDigest(parameters: TreeMap<String, String>): String {
+    fun getMessageToDigest(parameters: Map<String, String>): String {
         var first = true
         var valueToDigest = ""
         for ((key, value) in parameters) {

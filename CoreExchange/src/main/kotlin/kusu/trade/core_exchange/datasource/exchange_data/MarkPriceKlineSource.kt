@@ -5,14 +5,16 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 import kusu.trade.core_exchange.consts.BingXURLs
 import kusu.trade.core_exchange.datamodels.bingx.BingXResponseBase
+import kusu.trade.core_exchange.datamodels.bingx.BingXResponseBaseList
 import kusu.trade.core_exchange.datamodels.bingx.kline.BingXMarkPriceKline
+import kusu.trade.core_exchange.datamodels.bingx.kline.BingXMarkPriceKlineElement
 import kusu.trade.core_exchange.datasource.clients.client.BingXWebClient
 import java.util.*
 
 class MarkPriceKlineSource(private val bingXWebClient: BingXWebClient = BingXWebClient.getClient())
     : ExchangeSource<BingXMarkPriceKline> {
 
-    override fun subscribe(params: TreeMap<String, String>): Flow<BingXResponseBase<BingXMarkPriceKline>> = flow{
+    override fun subscribe(params: Map<String, String>): Flow<BingXResponseBase<BingXMarkPriceKline>> = flow{
 
         while (true){
             val response = bingXWebClient.getRequest(
@@ -30,16 +32,24 @@ class MarkPriceKlineSource(private val bingXWebClient: BingXWebClient = BingXWeb
         }
     }
 
-    override fun getNow(params: TreeMap<String, String>): BingXResponseBase<BingXMarkPriceKline> {
+    override fun getNow(params: Map<String, String>): BingXResponseBase<BingXMarkPriceKline> {
 
         val response = bingXWebClient.getRequest(
             BingXURLs.MARK_PRICE_KLINE,
             params
         )
+        val a = Json.decodeFromString<BingXResponseBaseList<BingXMarkPriceKlineElement>>(response)
 
-        val jsonR = Json.decodeFromString<BingXResponseBase<BingXMarkPriceKline>>(response)
+        val b = BingXResponseBase<BingXMarkPriceKline>(
+            code = a.code,
+            msg = a.msg,
+            BingXMarkPriceKline(
+                a.data
+            )
+        )
 
-        return(jsonR)
+
+        return(b)
 
     }
 }

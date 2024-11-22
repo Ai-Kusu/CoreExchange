@@ -11,7 +11,7 @@ import java.util.*
 class OpenInterestSource(private val bingXWebClient: BingXWebClient = BingXWebClient.getClient()) :
     ExchangeSource<BingXResponseOpenInterest> {
 
-    override fun subscribe(params: TreeMap<String,String>) = flow{
+    override fun subscribe(params: Map<String,String>) = flow{
 
         while (true){
             val response = bingXWebClient.getRequest(
@@ -27,7 +27,7 @@ class OpenInterestSource(private val bingXWebClient: BingXWebClient = BingXWebCl
         }
     }
 
-    override fun getNow(params: TreeMap<String,String>): BingXResponseBase<BingXResponseOpenInterest> {
+    override fun getNow(params: Map<String,String>): BingXResponseBase<BingXResponseOpenInterest> {
 
         val response = bingXWebClient.getRequest(
             BingXURLs.OPEN_INTEREST,

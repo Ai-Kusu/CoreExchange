@@ -4,7 +4,7 @@ import kusu.trade.core_exchange.consts.BiBitURLs
 import org.springframework.web.reactive.function.client.WebClient
 
 
-class BiBitRestClient(){
+class BiBitWebClient(){
 
     companion object{
         private val biBitClient: WebClient = WebClient

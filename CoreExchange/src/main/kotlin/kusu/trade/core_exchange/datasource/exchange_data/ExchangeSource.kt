@@ -7,6 +7,6 @@ import kusu.trade.core_exchange.datamodels.bingx.open_interest.BingXResponseOpen
 import java.util.*
 
 interface ExchangeSource<T: BingXResponse> {
-    fun subscribe(params: TreeMap<String, String>): Flow<BingXResponseBase<T>>
-    fun getNow(params: TreeMap<String,String>): BingXResponseBase<T>
+    fun subscribe(params: Map<String, String>): Flow<BingXResponseBase<T>>
+    fun getNow(params: Map<String,String>): BingXResponseBase<T>
 }

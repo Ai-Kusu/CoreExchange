@@ -16,7 +16,7 @@ class BingXWebClient {
         .baseUrl(BingXURLs.API_URL)
         .build()
 
-    fun getRequest(path : String, parameters: TreeMap<String, String>): String{
+    fun getRequest(path : String, parameters: Map<String, String>): String{
 
         val method = "GET"
         val timestamp = "" + Timestamp(System.currentTimeMillis()).getTime()
