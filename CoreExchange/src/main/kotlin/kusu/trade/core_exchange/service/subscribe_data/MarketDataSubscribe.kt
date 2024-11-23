@@ -1,6 +1,6 @@
 package kusu.trade.core_exchange.service.subscribe_data
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
 import kusu.trade.core_exchange.datasource.clients.client.BingXWebClient
 import kusu.trade.core_exchange.datasource.clients.client.TelegramWebClient
@@ -11,11 +11,11 @@ import kusu.trade.core_exchange.service.console.ConsolePresentationKLine
 import kusu.trade.core_exchange.service.console.ConsolePresentationOpenInterest
 import kusu.trade.core_exchange.service.console.ConsolePresentationOrderBook
 
-class MarketDataSubscribeData(
+class MarketDataSubscribe(
     private val bingXWebClient: BingXWebClient,
     private val telegramWebClient: TelegramWebClient,
     private var params: MutableMap<String, MutableMap<String, String>>
-): SubscribeTokenData(bingXWebClient, params) {
+) {
 
     private var flag = true
 
@@ -25,12 +25,10 @@ class MarketDataSubscribeData(
         params = params
     )
 
-
-    override suspend fun subscribe() {
-       val openInterestSource = OpenInterestSource(bingXWebClient)
-       val markPriceKlineSource = MarkPriceKlineSource(bingXWebClient)
-       val orderBookSubscribe = OrderBookSubscribe(bingXWebClient)
-
+    suspend fun subscribe() {
+        val openInterestSource = OpenInterestSource(bingXWebClient)
+        val markPriceKlineSource = MarkPriceKlineSource(bingXWebClient)
+        val orderBookSubscribe = OrderBookSubscribe(bingXWebClient)
 
         while (flag){
 
@@ -55,32 +53,31 @@ class MarketDataSubscribeData(
         }
     }
 
-    override fun stopSubscribe() {
+    fun stopSubscribe() {
         flag = false
     }
 
-    override fun continueSubscribe() {
+    fun continueSubscribe() {
         flag = true
     }
 
-    override fun getParams(): MutableMap<String, MutableMap<String, String>> {
+    fun getParams(): MutableMap<String, MutableMap<String, String>> {
         return params
     }
 
-    override fun setSourceParams(source: String, sourceParams: MutableMap<String, String>) {
+    fun setSourceParams(source: String, sourceParams: MutableMap<String, String>) {
         params[source] = sourceParams
     }
 
-    override fun setParams(allParams: MutableMap<String, MutableMap<String, String>>) {
+    fun setParams(allParams: MutableMap<String, MutableMap<String, String>>) {
         params = allParams
     }
 
-
 }
+
 
 @Serializable
 data class PostInfo(
     val token: String,
     val info: String
 )
-

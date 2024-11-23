@@ -1,29 +1,38 @@
 package kusu.trade.core_exchange.controllers
 
-import kusu.trade.core_exchange.service.SourceManager
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kusu.trade.core_exchange.service.subscribe_data.MarketDataSubscribe
+import kusu.trade.core_exchange.service.subscribe_data.MarketDataSubscribeManager
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController("/subscribe")
-class SubscribeDataController {
+class SubscribeDataController @Autowired constructor(private val sourceManager: MarketDataSubscribeManager) {
 
-    private val sourceManager = SourceManager.getInstance()
 
     @PostMapping("/create/{symbol}")
-    fun createSource(@PathVariable symbol: String) {
+    fun createSubscribe(@PathVariable symbol: String) {
         val params = mutableMapOf<String, MutableMap<String, String>>()
         try {
-            sourceManager.createSource(symbol, params)
+
+            //TODO переделать это недорозумение
+            GlobalScope.launch {
+
+                sourceManager.subscribe(symbol, params)
+            }
+
         } catch (e: Exception){
 
         }
     }
 
     @PostMapping("/stop/{symbol}")
-    fun stopSource(@PathVariable symbol: String) {
+    fun stopSubscribe(@PathVariable symbol: String) {
         try {
-            sourceManager.stopSource(symbol)
+            sourceManager.stopSubscribe(symbol)
         } catch (e: Exception){
 
         }
@@ -32,29 +41,29 @@ class SubscribeDataController {
     @PostMapping("/continue/{symbol}")
     fun continueSource(@PathVariable symbol: String) {
         try {
-            sourceManager.continueSource(symbol)
+            sourceManager.continueSubscribe(symbol)
         } catch (e: Exception){
 
         }
     }
 
     @PostMapping("/delete/{symbol}")
-    fun deleteSource(@PathVariable symbol: String) {
+    fun deleteSubscribe(@PathVariable symbol: String) {
         try {
-            sourceManager.deleteSource(symbol)
+            sourceManager.deleteSubscribe(symbol)
         } catch (e: Exception){
 
         }
     }
 
     @PostMapping("/get/")
-    fun getSourceList(): Map<String, MutableMap<String, String>>{
-        return sourceManager.getSourceList()
+    fun getSubscribesList(): MutableMap<String, MarketDataSubscribe> {
+        return sourceManager.getSubscribes()
     }
 
     @PostMapping("/get/{symbol}")
-    fun getSource(@PathVariable symbol: String): MutableMap<String, String>{
-        return sourceManager.getSource(symbol)
+    fun getSubscribe(@PathVariable symbol: String): MutableMap<String, MutableMap<String, String>> {
+        return sourceManager.getParams(symbol)
     }
 
 
