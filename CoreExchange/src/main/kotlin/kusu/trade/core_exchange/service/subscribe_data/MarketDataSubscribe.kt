@@ -17,7 +17,7 @@ class MarketDataSubscribe(
     private var params: MutableMap<String, MutableMap<String, String>>
 ) {
 
-    private var flag = true
+    private var isSubscribeActive = true
 
     constructor(params: MutableMap<String, MutableMap<String, String>>) : this(
         bingXWebClient = BingXWebClient.getClient(),
@@ -30,7 +30,7 @@ class MarketDataSubscribe(
         val markPriceKlineSource = MarkPriceKlineSource(bingXWebClient)
         val orderBookSubscribe = OrderBookSubscribe(bingXWebClient)
 
-        while (flag){
+        while (isSubscribeActive){
 
             val openInterest = openInterestSource.getNow(params = params["openInterestParams"]!!)
             val orderBook = orderBookSubscribe.getNow(params = params["markPriceKlineParas"]!!)
@@ -54,11 +54,11 @@ class MarketDataSubscribe(
     }
 
     fun stopSubscribe() {
-        flag = false
+        isSubscribeActive = false
     }
 
     fun continueSubscribe() {
-        flag = true
+        isSubscribeActive = true
     }
 
     fun getParams(): MutableMap<String, MutableMap<String, String>> {

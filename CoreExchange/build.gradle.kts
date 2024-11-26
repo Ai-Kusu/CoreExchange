@@ -25,6 +25,9 @@ repositories {
 }
 
 dependencies {
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webflux-ui
+	implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.6.0")
+
 	// https://mvnrepository.com/artifact/commons-codec/commons-codec
 	implementation("commons-codec:commons-codec:1.17.1")
 // https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket
@@ -62,12 +65,6 @@ tasks.withType<Test> {
 tasks.withType<ShadowJar> {
 	manifest {
 		attributes["Main-Class"] = "kusu.trade.core_exchange.CoreExchangeApplicationKt"
-		/*attributes["Class-Path"] = configurations
-			.runtimeClasspath
-			.get()
-			.joinToString(separator = " ") { file ->
-				"libs/${file.name}"
-			}*/
 	}
 
 
